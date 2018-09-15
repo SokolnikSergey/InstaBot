@@ -4,17 +4,27 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from random import randint
 from time import sleep
-
 import os, sys, inspect
+import configparser
+
+config = configparser.ConfigParser()
+config.read('settings.ini')
+
+timer_between_operations = int(config['DEFAULT']['timer_between_oeprations'])
+timeer_beetwen_sub_unsub = int(config['DEFAULT']['timer_beetwen_refreshing'])
+user_name = config['DEFAULT']['login']
+password = config['DEFAULT']['password']
+amount_of_repeats = int(config['DEFAULT']['amount_repeats'])
 
 current_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile(inspect.currentframe()))[0]))
 
-timer_between_operations = int(input("Timer between oeprations(sec):\n"))
-timeer_beetwen_sub_unsub = int(input("Timer beetwet_refreshing(sec):\n"))
+# timer_between_operations = int(input("Timer between oeprations(sec):\n"))
+# timeer_beetwen_sub_unsub = int(input("Timer beetwet_refreshing(sec):\n"))
+#
+# user_name = input("Enter your login:\n")
+# password = input("Enter your password:\n")
+# amount_of_repeats = int(input("Input amount of repeats (or amount around infinity 0 or less ):\n"))
 
-user_name = input("Enter your login:\n")
-password = input("Enter your password:\n")
-amount_of_repeats = int(input("Input amount of repeats (or amount around infinity 0 or less ):\n"))
 str_list_refs = open('./refs.txt', 'r').read()
 
 
@@ -44,6 +54,7 @@ def start_subscribing(list_of_refs, user_name, password, min_pause, max_pause):
     logging_action(list_of_refs[0], user_name, password)
 
     for ref in list_of_refs:
+        print(ref)
         pause = randint(min_pause, max_pause)
         aсtion_after_loging(ref, 1, pause)
 
@@ -80,28 +91,34 @@ def try_to_do_action(ref,elem_class,waiting_class,waiting_title,pause):
         if not (elem.text == waiting_title):
             elem.click()
             sleep(pause)
+            if waiting_title == "Подписаться":
+                elem = driver.find_elements_by_xpath("//button[contains(text(), 'Отменить подписку')]")
+                if elem:
+                    elem[0].click()
+                    sleep(pause)
         else:
             break
 
 def aсtion_after_loging(ref, action, pause):
     try:
         if action == 1:
-            elem = get_element_with_wishing(ref, "_qv64e", "_qv64e")
+            elem = get_element_with_wishing(ref, "_5f5mN", "_5f5mN")
             if elem.text == "Подписки":
-                try_to_do_action(ref,"_qv64e","_qv64e","Подписаться",pause)
-                try_to_do_action(ref, "_qv64e", "_qv64e", "Подписки", pause)
+                try_to_do_action(ref,"_5f5mN","_5f5mN","Подписаться",pause)
+                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
+
 
             if elem.text == "Подписаться":
-                try_to_do_action(ref, "_qv64e", "_qv64e", "Подписки", pause)
+                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
 
         elif action == 2:
-            elem = get_element_with_wishing(ref, "_qv64e", "_qv64e")
+            elem = get_element_with_wishing(ref, "_5f5mN", "_5f5mN")
             if elem.text == "Подписки":
-                try_to_do_action(ref, "_qv64e", "_qv64e", "Подписаться", pause)
-                try_to_do_action(ref, "_qv64e", "_qv64e", "Подписки", pause)
+                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписаться", pause)
+                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
 
             if elem.text == "Подписаться":
-                try_to_do_action(ref, "_qv64e", "_qv64e", "Подписки", pause)
+                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
 
 
     except Exception as ex:
@@ -111,7 +128,7 @@ def aсtion_after_loging(ref, action, pause):
 
 def logging_action(ref, user_name, password):
     driver.get(ref)
-    elem = driver.find_element_by_class_name("_qv64e")
+    elem = driver.find_element_by_class_name("tdiEy")
     elem.click()
 
     try:
@@ -122,12 +139,18 @@ def logging_action(ref, user_name, password):
         elem.send_keys(user_name)
         elem = driver.find_element_by_name("password")
         elem.send_keys(password)
-        elem = driver.find_element_by_class_name("_qv64e")
+        elem = driver.find_element_by_class_name("_5f5mN")
         elem.click()
-
-        element = WebDriverWait(driver, 300).until(
-            EC.presence_of_element_located((By.CLASS_NAME, "_68sh8"))
+        element = WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "XrOey"))
         )
+
+        elem = driver.find_elements_by_xpath("//button[contains(@class, 'chBAG')]")
+        if elem:
+            elem[0].click()
+            sleep(1)
+
+
 
     except:
         print("Error")

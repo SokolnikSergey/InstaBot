@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['Inst.py'],
-             pathex=['D:\\SeleniumInsta'],
+             pathex=['E:\\MyProjects\\SeleniumInsta'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -25,4 +25,5 @@ exe = EXE(pyz,
           debug=False,
           strip=False,
           upx=True,
+          runtime_tmpdir=None,
           console=True )
