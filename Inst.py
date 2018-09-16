@@ -129,17 +129,6 @@ def aсtion_after_loging(ref, action, pause):
             if elem.text == "Follow":
                 try_to_do_action(ref, "_5f5mN", "_5f5mN", "Following", pause)
 
-
-        elif action == 2:
-            elem = get_element_with_wishing(ref, "_5f5mN", "_5f5mN")
-            if elem.text == "Подписки":
-                try_to_do_action(ref,"_5f5mN","_5f5mN","Подписаться",pause)
-                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
-
-
-            if elem.text == "Подписаться":
-                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
-
         elif action == 2:
             elem = get_element_with_wishing(ref, "_5f5mN", "_5f5mN")
             if elem.text == "Подписки":
