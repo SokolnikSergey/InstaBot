@@ -132,6 +132,17 @@ subprocess.run(["ruby", "mail_reader.rb",mail_login,mail_password])
 
 
         elif action == 2:
+            elem = get_element_with_wishing(ref, "_5f5mN", "_5f5mN")
+            if elem.text == "Подписки":
+                try_to_do_action(ref,"_5f5mN","_5f5mN","Подписаться",pause)
+                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
+
+
+            if elem.text == "Подписаться":
+                try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
+
+        elif action == 2:
+            elem = get_element_with_wishing(ref, "_5f5mN", "_5f5mN")
             if elem.text == "Подписки":
                 try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписаться", pause)
                 try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
@@ -173,8 +184,6 @@ def logging_action(ref, user_name, password):
         elem.send_keys(password)
         elem = driver.find_element_by_class_name("_5f5mN")
         elem.click()
-
-
         element = WebDriverWait(driver, 30).until(
             EC.presence_of_element_located((By.CLASS_NAME, "XrOey"))
         )
@@ -185,6 +194,13 @@ def logging_action(ref, user_name, password):
             sleep(1)
         
       
+        elem = driver.find_elements_by_xpath("//button[contains(@class, 'chBAG')]")
+        if elem:
+            elem[0].click()
+            sleep(1)
+
+
+
     except:
         print("Error")
 
