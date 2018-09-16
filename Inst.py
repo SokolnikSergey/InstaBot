@@ -115,8 +115,7 @@ def aсtion_after_loging(ref, action, pause):
                 try_to_do_action(ref,"_5f5mN","_5f5mN","Подписаться",pause)
                 try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
 
-subprocess.run(["ruby", "mail_reader.rb",mail_login,mail_password])
-
+            
             if elem.text == "Подписаться":
                 try_to_do_action(ref, "_5f5mN", "_5f5mN", "Подписки", pause)
 
