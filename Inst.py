@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 from random import randint
 from time import sleep
 import os, sys, inspect
@@ -212,11 +213,22 @@ def logging_action(ref, user_name, password):
             with open("./file_with_code","r") as file_with_code:
                 code = file_with_code.readline()
 
-                #can't test this logic -> not always appears 
-                for number in code :
-                    elem.send_keys(number)
+                #can't test this logic -> not always appears
+                
                 elem = driver.find_element_by_class_name("_281Ls")
+                ActionChains(driver).move_to_element(elem).perform()
+                
+                for number in code :
+                    sleep(1)
+                    print("number of code inserted ->" , code)
+                    elem.send_keys(number)
+
+                sleep(5)
+                
+                elem = driver.find_element_by_class_name("_5f5mN")
+                ActionChains(driver).move_to_element(elem).perform()         
                 elem.click()
+                sleep(5)
                     
         else:
             #exit because no code found in email , but we need to pass verification 
