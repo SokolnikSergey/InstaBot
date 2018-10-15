@@ -15,10 +15,10 @@ class SettingsManager:
 
     def get_general_settings(self):
         self.__general_settings.update({"timer_between_operations" : int(self.__config_file['DEFAULT']['timer_between_operations'])})
-        self.__general_settings.update({"timer_between_sub_unsub" : int(self.__config_file['DEFAULT']['timer_beetwen_refreshing'])})
+        self.__general_settings.update({"timer_beetwen_refreshing" : int(self.__config_file['DEFAULT']['timer_beetwen_refreshing'])})
         self.__general_settings.update({"login" : self.__config_file['DEFAULT']['login']})
         self.__general_settings.update({"password" : self.__config_file['DEFAULT']['password']})
-        self.__general_settings.update({"amount_of_repeats" : int(self.__config_file['DEFAULT']['amount_repeats'])})
+        self.__general_settings.update({"amount_repeats" : int(self.__config_file['DEFAULT']['amount_of_repeats'])})
 
     def get_mail_settings(self):
         self.__mail_settings.update({"login" : self.__config_file['MAIL']['login']})

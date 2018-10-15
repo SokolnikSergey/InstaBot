@@ -48,7 +48,7 @@ class Operator:
     def refresh_subscription(self):
         for i in range(self.check_amount_of_repeats( self.__settings_manager.get_setting_value('general','amount_repeats'))):
             for ref in self.__refs:
-                pause = randint(self.calculate_random_timer(self.__settings_manager.get_setting_value('general','timer_between_operations')))
+                pause = randint(*self.calculate_random_timer(self.__settings_manager.get_setting_value('general','timer_between_operations')))
                 self.__insta_operator.perform_action_after_login(ref, 2, pause)
 
             print("sleep before sub unsub")
@@ -61,7 +61,7 @@ class Operator:
         password = self.__settings_manager.get_setting_value('general','password')
         mail_user_name = self.__settings_manager.get_setting_value('mail','login')
         mail_password = self.__settings_manager.get_setting_value('mail','password')
-
+        #print(self.__insta_operator.get_language_from_page())
         self.__insta_operator.logging_action(self.__refs[0],user_name,password,mail_user_name,mail_password)
         self.start_subscribing()
         self.refresh_subscription()

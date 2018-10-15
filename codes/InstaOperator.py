@@ -11,6 +11,13 @@ class InstaOperator:
     def __init__(self,driver):
         self.__driver = driver
 
+    #detect language of pages
+    def get_language_from_page(self):
+        self.__driver.get("https://www.instagram.com/") ##main page
+        WebDriverWait(self.__driver, 30).until(
+            EC.presence_of_element_located((By.ID, "react-root")))
+        return self.__driver.find_elements_by_xpath("//html")[0].get_attribute("lang") ##return en or ru 
+
     def get_element_with_wishing(self,ref, search_class, presence_class):
         self.__driver.get(ref)
         WebDriverWait(self.__driver, 30).until(
@@ -49,17 +56,17 @@ class InstaOperator:
             elem.send_keys(user_name)
             elem = self.__driver.find_element_by_name("password")
             elem.send_keys(password)
-            elem = self.__driver.find_element_by_class_name("oF4XW")
+            elem = self.__driver.find_elements_by_xpath("//button[contains(@class, 'oF4XW') and contains(./text(),'Log in')]")[0]
             elem.click()
             sleep(3)
-            # element = WebDriverWait(self.__driver, 30).until(
-            #     EC.presence_of_element_located((By.CLASS_NAME, "oF4XW")) #perform login button
-            # )
+            element = WebDriverWait(self.__driver, 30).until(
+                 EC.presence_of_element_located((By.CLASS_NAME, "oF4XW")) #perform login button
+             )
 
 
 
-        except:
-            print("Error login without verification")
+        except Exception as ex:
+            print("Error login without verification" , ex)
 
             # if verification occured . WE need to read from mail verification code
             elem = self.__driver.find_elements_by_xpath("//button[contains(@class, 'chBAG')]")
