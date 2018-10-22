@@ -18,14 +18,15 @@ Mail.defaults do
                    :enable_ssl => true
 end
 
-# watiting new message from insta ( every 10 second looking for message newest then request to get message)
-(0..20).each{ |el|
+# watiting new message from insta ( every 20 second looking for message newest then request to get message)
+(0..30).each{ |el|
       Mail.last(options = {:count=>10}).each do |el|
         if el.from_addrs[0] == "security@mail.instagram.com" and  date_request_sent < el.date
           File.open("file_with_code", 'w') { |file| file.write("#{Nokogiri::HTML(el.decode_body).xpath("//p/font/text()").to_s}") }
           exit
         end
-          sleep(10)
+          sleep(20)
           puts "code not found"
       end
 }
+File.open("file_with_code", 'w') { |file| file.write("Can't find verifacation code from mail") }

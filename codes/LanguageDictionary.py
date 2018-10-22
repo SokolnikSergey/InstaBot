@@ -6,6 +6,7 @@ class LanguageDictionary(object):
         "unsubscribe_confirmation":"Unfollow",
         "login":"Log in",
         "enter":"Log in",
+        "send_security_code":"Send Security Code"
     }
     RU_aliases = {
 

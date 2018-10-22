@@ -88,6 +88,10 @@ class InstaOperator:
                 with open("./file_with_code", "r") as file_with_code:
                     code = file_with_code.readline()
 
+                    if code == "Can't find verifacation code from mail":
+                        "Code not found from mail , need to exit"
+                        exit()
+
                     # can't test this logic -> not always appears
 
                     elem = self.__driver.find_element_by_class_name("_281Ls")
